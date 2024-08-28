@@ -1,6 +1,9 @@
 from pymongo import MongoClient, collection, database
 from os import getenv
 from enum import Enum
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 class Collection(Enum):

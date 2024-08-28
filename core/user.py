@@ -1,5 +1,4 @@
 from core.common import getTime
-from json import dumps
 
 
 class User:

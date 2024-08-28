@@ -1,23 +1,12 @@
-from flask import Flask, request, jsonify, json
-from core.routing import createResponse
+from flask import request, Blueprint
+from core.common import createResponse
 from core.user import User
-from core.users import Users
-from core.controller import Controller
-from dotenv import load_dotenv
-from os import getenv
+from core.extensions import users
 
-load_dotenv()
-
-controller = Controller()
-app = Flask(__name__)
-users = Users(controller)
-
-# API to create runtime users dataset validating if the users are active on the game or not
-# The program must validate if the user has actions every 15 minutes,
-# if not, remove it automatically from the dataset
+main = Blueprint("main", __name__)
 
 
-@app.route('/user-join', methods=["POST"])
+@main.route('/user-join', methods=["POST"])
 def userJoin():
     # add new user on the dataset
     # validate if the requests has the correct information and if the user is active
@@ -34,13 +23,13 @@ def userJoin():
     return createResponse(200, None, None)
 
 
-@app.route('/get-users', methods=["GET"])
+@main.route('/get-users', methods=["GET"])
 def getUsers():
     # returns a set of active users
     return createResponse(200, users.getActiveUsersJSON(), None)
 
 
-@app.route('/user-exit', methods=["POST"])
+@main.route('/user-exit', methods=["POST"])
 def userExit():
     # remove user from the dataset
     # it validates if the request has the correct information and validate if the user exists
@@ -57,10 +46,6 @@ def userExit():
     return createResponse(200, None, None)
 
 
-@app.route('/daily-logs', methods=["GET"])
+@main.route('/daily-logs', methods=["GET"])
 def dailyLogs():
     return createResponse(200, users.getTimeLogs(), None)
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=getenv("APP_PORT"))
