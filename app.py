@@ -2,9 +2,14 @@ from flask import Flask, request, jsonify, json
 from core.routing import createResponse
 from core.user import User
 from core.users import Users
+from core.controller import Controller
+from dotenv import load_dotenv
 
+load_dotenv()
+
+controller = Controller()
 app = Flask(__name__)
-users = Users()
+users = Users(controller)
 
 # API to create runtime users dataset validating if the users are active on the game or not
 # The program must validate if the user has actions every 15 minutes,
@@ -49,6 +54,11 @@ def userExit():
         return createResponse(400, None, "Invalid user")
 
     return createResponse(200, None, None)
+
+
+@app.route('/daily-logs', methods=["GET"])
+def dailyLogs():
+    return createResponse(200, users.getTimeLogs(), None)
 
 
 if __name__ == "__main__":
