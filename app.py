@@ -2,9 +2,7 @@ from flask import Flask, request, jsonify, json
 from core.routing import createResponse
 from core.user import User
 from core.users import Users
-from apscheduler.schedulers.background import BackgroundScheduler
 
-scheduler = BackgroundScheduler()
 app = Flask(__name__)
 users = Users()
 
