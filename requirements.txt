@@ -2,10 +2,13 @@ APScheduler==3.10.4
 blinker==1.8.2
 click==8.1.7
 colorama==0.4.6
+dnspython==2.6.1
 Flask==3.0.3
 itsdangerous==2.2.0
 Jinja2==3.1.4
 MarkupSafe==2.1.5
+pymongo==4.8.0
+python-dotenv==1.0.1
 pytz==2024.1
 schedule==1.2.2
 six==1.16.0

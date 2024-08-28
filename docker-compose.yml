@@ -1,0 +1,30 @@
+version: '3.9'
+services:
+  api:
+    env_file:
+      - .env
+    container_name: api-active-users
+    build: .
+    image: 'api-active-users:0.0.3'
+    environment:
+      FLASK_DEBUG: 1
+      FLASK_APP: ./app.py
+      FLASK_RUN_HOST: 0.0.0.0
+    ports:
+      - ${APP_PORTS}
+    links:
+      - database
+    depends_on:
+      - database
+    networks:
+      - default
+  database:
+    image: mongo:latest
+    env_file:
+      - .env
+    container_name: mongo
+    ports:
+      - ${MONGO_PORTS}
+    networks:
+      - default
+

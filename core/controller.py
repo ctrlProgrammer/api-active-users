@@ -13,6 +13,7 @@ class Controller:
     mongoDB: database.Database
 
     def __init__(self) -> None:
+        print("Connecting to " + getenv("MONGO_CLIENT"))
         self.mongoDB = self.mongoClient[getenv("MONGO_DB")]
 
     def collection(self, collection: Collection) -> collection.Collection:

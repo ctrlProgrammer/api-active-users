@@ -4,6 +4,7 @@ from core.user import User
 from core.users import Users
 from core.controller import Controller
 from dotenv import load_dotenv
+from os import getenv
 
 load_dotenv()
 
@@ -62,4 +63,4 @@ def dailyLogs():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=getenv("APP_PORT"))
